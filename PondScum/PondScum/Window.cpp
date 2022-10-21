@@ -6,6 +6,8 @@ Window::Window()
 {
 	setTitle("");
 	setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	deltaTime = 0.0f;
+	lastFrame = 0.0f;
 }
 
 Window::Window(string title, int width, int height)
@@ -81,7 +83,16 @@ void Window::setFrambufferCallback(GLFWframebuffersizefun callback)
 	glfwSetFramebufferSizeCallback(window, callback);
 }
 
-int Window::getKey(int key)
+bool Window::isKeyPressed(int key)
 {
-	return glfwGetKey(this->window, key);
+	return glfwGetKey(this->window, key) == GLFW_PRESS;
+}
+
+float Window::frameTick()
+{
+	float currentFrame = static_cast<float>(glfwGetTime());
+	deltaTime = currentFrame - lastFrame;
+	lastFrame = currentFrame;
+	
+	return deltaTime;
 }

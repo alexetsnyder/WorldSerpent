@@ -1,6 +1,9 @@
 #include "Shader.h"
 #include <glad/glad.h>
 #include <fstream>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 Shader::Shader()
 {
@@ -103,4 +106,10 @@ string Shader::loadFile(string fileName)
 	}
 
 	return "";
+}
+
+void Shader::setUniformMatrix4fv(string name, glm::mat4 uniformMat)
+{
+	int matLoc = glGetUniformLocation(program, name.c_str());
+	glUniformMatrix4fv(matLoc, 1, GL_FALSE, glm::value_ptr(uniformMat));
 }

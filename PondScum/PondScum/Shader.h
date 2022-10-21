@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <glm/glm.hpp>
 
 using namespace std;
 
@@ -15,6 +16,8 @@ class Shader
 		bool compile(char errorMsg[512]);
 		bool link(char errorMsg[512]);
 		void use();
+
+		void setUniformMatrix4fv(string name, glm::mat4 uniformMat);
 
 		void free();
 

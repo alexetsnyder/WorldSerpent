@@ -18,8 +18,9 @@ class Window
 		void setWidth(int width);
 		void setHeight(int height);
 		void setFrambufferCallback(GLFWframebuffersizefun callback);
-		int getKey(int key);
+		bool isKeyPressed(int key);
 
+		float frameTick();
 		bool isRunning();
 		void close();
 		void swapBuffers();
@@ -30,5 +31,6 @@ class Window
 		GLFWwindow* window;
 		std::string title;
 		int width, height;
+		float deltaTime, lastFrame;
 };
 
