@@ -64,12 +64,15 @@ int main(int argc, char** argv)
 
 		graphics->setView(camera.getViewMatrix());
 
-		for (unsigned int i = 0; i < 7; ++i)
+		/*for (unsigned int i = 0; i < 7; ++i)
 		{
 			glm::mat4 model = glm::mat4(1.0f);
 			model = glm::translate(model, glm::vec3(trianglePositions[i], 0.0f));
 			graphics->draw(Shape::TRIANGLE, model);
-		}
+		}*/
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+		graphics->draw(Shape::HEXAGON, model);
 
 		window.swapBuffers();
 		window.pollEvents();

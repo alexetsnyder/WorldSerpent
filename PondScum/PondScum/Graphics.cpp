@@ -17,6 +17,33 @@ float SquareVertices[] = {
    0.5f, -0.5f, 0.0f,
 };
 
+float HexagonVertices[] = {
+	 0.0f,   0.0f, 0.0f,    // center
+	-0.5f,   1.0f, 0.0f,    // left top
+	 0.5f,   1.0f, 0.0f,    // right top
+
+	 0.0f,   0.0f, 0.0f,    // center
+	 0.5f,   1.0f, 0.0f,    // right top
+	 1.0f,   0.0f, 0.0f,    // right
+
+	 0.0f,   0.0f, 0.0f,    // center
+	 1.0f,   0.0f, 0.0f,    // right
+	 0.5f,   -1.0f, 0.0f,   // right bottom
+
+	 0.0f,   0.0f, 0.0f,    // center
+	 0.5f,   -1.0f, 0.0f,   // right bottom
+	-0.5f,  -1.0f, 0.0f,    // left bottom
+
+	 0.0f,   0.0f, 0.0f,    // center
+	-0.5f,  -1.0f, 0.0f,    // left bottom
+	-1.0f,   0.0f, 0.0f,    // left
+
+	 0.0f,   0.0f, 0.0f,    // center
+	-1.0f,   0.0f, 0.0f,    // left
+	-0.5f,   1.0f, 0.0f,    // left top
+
+};
+
 Triangle::Triangle()
 {
 	VAO = 0;
@@ -95,6 +122,37 @@ void Circle::draw()
 
 }
 
+Hexagon::Hexagon()
+{
+	VAO = 0;
+	VBO = 0;
+}
+
+void Hexagon::init()
+{
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+
+	glBindVertexArray(VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	glBufferData(GL_ARRAY_BUFFER, sizeof(HexagonVertices), HexagonVertices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+}
+
+void Hexagon::draw()
+{
+	glBindVertexArray(VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 18);
+	glBindVertexArray(0);
+}
+
 bool Graphics::init(GLADloadproc procAddress)
 {
 	bool success = gladLoadGLLoader(procAddress);
@@ -127,6 +185,7 @@ bool Graphics::init(GLADloadproc procAddress)
 		triangle.init();
 		square.init();
 		circle.init();
+		hex.init();
 	}
 
 	return success;
@@ -159,6 +218,10 @@ void Graphics::draw(Shape shape, glm::mat4 model)
 	else if (shape == Shape::SQUARE)
 	{
 		square.draw();
+	}
+	else if (shape == Shape::HEXAGON)
+	{
+		hex.draw();
 	}
 	else //(shape == Shape::CIRCLE)
 	{

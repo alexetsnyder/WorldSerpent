@@ -18,23 +18,23 @@ glm::mat4 Camera::getViewMatrix()
 void Camera::moveUp(float deltaTime)
 {
 	float cameraSpeed = static_cast<float>(cameraSpeedMod * deltaTime);
-	cameraPos -= cameraSpeed * cameraUp;
+	cameraPos += cameraSpeed * cameraUp;
 }
 
 void Camera::moveDown(float deltaTime)
 {
 	float cameraSpeed = static_cast<float>(cameraSpeedMod * deltaTime);
-	cameraPos += cameraSpeed * cameraUp;
+	cameraPos -= cameraSpeed * cameraUp;
 }
 
 void Camera::moveLeft(float deltaTime)
 {
 	float cameraSpeed = static_cast<float>(cameraSpeedMod * deltaTime);
-	cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
 
 void Camera::moveRight(float deltaTime)
 {
 	float cameraSpeed = static_cast<float>(cameraSpeedMod * deltaTime);
-	cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }

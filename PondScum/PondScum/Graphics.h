@@ -40,11 +40,24 @@ class Circle
 		unsigned int VAO, VBO;
 };
 
+class Hexagon
+{
+	public:
+		Hexagon();
+
+		void init();
+		void draw();
+
+	private:
+		unsigned int VAO, VBO;
+};
+
 enum Shape
 {
 	TRIANGLE,
 	SQUARE,
 	CIRCLE,
+	HEXAGON,
 };
 
 class Graphics
@@ -77,5 +90,6 @@ class Graphics
 		Triangle triangle;
 		Square square;
 		Circle circle;
+		Hexagon hex;
 };
 
